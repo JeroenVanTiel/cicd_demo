@@ -22,7 +22,7 @@ jobs:
       runOnce:
         deploy:
           steps: 
-          - template: ../templates/job/publish-bicep-job.yml
+          - template: job/publish-bicep-job.yml
             parameters:
               azureSubscription: ${{parameters.svc_tst}}
               azure_environment: ${{parameters.azure_environment}}
