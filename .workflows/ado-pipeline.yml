@@ -1,0 +1,28 @@
+#This pipeline is triggered from ado_pipleine_ps_main.yml
+parameters:
+  - name: bicepBuild
+    default: infra
+  - name: location
+    default: westeurope
+  - name: svc_tst
+    default: 'AzureRM SvcConnection JMB-DPL-SDLZ-TST'
+  - name: azure_environment
+    default: tst
+
+jobs:
+  #Adding approval request for the Publish step
+  - deployment: DeployTST
+    displayName: 'Publish TST'
+    #Environment can be found in devops under environments
+    environment: ${{ parameters.azure_environment }}
+    variables:
+      - group: "Terraform Vars ${{parameters.azure_environment}}"
+      - group: "Bicep Vars ${{ parameters.azure_environment }}"
+    strategy:
+      runOnce:
+        deploy:
+          steps: 
+          - template: ../templates/job/publish-bicep-job.yml
+            parameters:
+              azureSubscription: ${{parameters.svc_tst}}
+              azure_environment: ${{parameters.azure_environment}}
