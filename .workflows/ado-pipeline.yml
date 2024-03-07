@@ -4,15 +4,30 @@ trigger: none
 variables:
   - name: subscription_name
     value: AzureRM SvcConnection JMB-DPL-SDLZ-TST
-  - group: "Terraform Vars TST"
 
 stages:
+  - stage: Build
     jobs:
-    - job: checkout job
-      steps:
-      - step: checkout step
-      - checkout: self 
-      - step: deploy step
+    # Build bicep main files
+    steps:
+      - template: bicep-build.yml
+        parameters:
+          subscription_name: ${{ variables.subscription_name }}
+          bicep_dir: $(Build.SourcesDirectory)/infra/main.bicep
+      
+      - task: ps-rule-assert@2
+        displayName: Analyze Azure template files
+        inputs:
+          inputType: repository
+          modules: 'PSRule.Rules.Azure'
+
+
+  - stage: Deploy
+    dependsOn:
+      - What_if
+    variables:
+      - group: "Terraform Vars DEV"
+    jobs:
     # Deploy bicep main files
       - template: bicep-deploy.yml
         parameters:
