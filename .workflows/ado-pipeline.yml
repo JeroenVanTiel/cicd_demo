@@ -57,4 +57,4 @@ stages:
                  az deployment sub create `
                  --location $(location) `
                  --template-file $(Build.SourcesDirectory)/infra/main.bicep `
-                 --parameters $(Build.SourcesDirectory)/infra/main.parameters.json
+                 --parameters $(Build.SourcesDirectory)/infra/main.params.json
