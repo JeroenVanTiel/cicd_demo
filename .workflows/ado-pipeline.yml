@@ -56,6 +56,5 @@ stages:
                  az login --service-principal -u '$(contributor-app-registration-id)' -p '$(contributor-service-principal-secret)' --tenant $(tenant-id)
                  az deployment sub create `
                  --location $(location) `
-                 --template-file '$(Build.SourcesDirectory)/infra/main.bicep' `
-                 --parameters '$(Build.SourcesDirectory)/infra/main.params.json' 
+                 --template-file $(Build.SourcesDirectory)/infra/main.bicep 
        
