@@ -29,7 +29,7 @@
 
   - stage: Deploy
     variables:
-      - group: "Terraform Vars DEV"
+      - group: "Terraform Vars TST"
     jobs:
     # Deploy bicep main files
       - template: bicep-deploy.yml
