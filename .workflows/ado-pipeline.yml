@@ -27,29 +27,16 @@
 #              azureSubscription: ${{parameters.svc_tst}}
 #              azure_environment: ${{parameters.azure_environment}}
 
-trigger:
-- main
-
-name: Deploy Bicep files
-
-variables:
-  vmImageName: 'ubuntu-latest'
-  azureServiceConnection: 'AzureRM SvcConnection JMB-DPL-SDLZ-TST'
-  #resourceGroupName: 'exampleRG'
-  location: 'westeurope'
-  templateFile: './infra/main.bicep'
-pool:
-  vmImage: $(vmImageName)
-
-steps:
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Subscription'
-    azureResourceManagerConnection: '$(azureServiceConnection)'
-    action: 'Create Or Update Resource Group'
-    #resourceGroupName: '$(resourceGroupName)'
-    location: '$(location)'
-    templateLocation: 'Linked artifact'
-    csmFile: '$(templateFile)'
-    deploymentMode: 'Incremental'
-    deploymentName: 'DeployPipelineTemplate'
+  - stage: Deploy
+    variables:
+      - group: "Terraform Vars DEV"
+    jobs:
+    # Deploy bicep main files
+      - template: bicep-deploy.yml
+        parameters:
+          template_file: '$(Pipeline.Workspace)/bicep/main.bicep'
+          job_name: 'DeployInfra'
+          deployment_scope: 'sub'
+          deploy_env_name: 'tst'
+          subscription: ${{ variables.subscription_name }}
+          template_parameters: '--parameters environment=tst'

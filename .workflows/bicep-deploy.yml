@@ -1,0 +1,59 @@
+parameters:
+  - name: template_file
+    type: string
+  - name: deploy_env_name
+    type: string
+  - name: job_name
+    type: string
+  - name: subscription
+    type: string
+    default: ''
+  - name: template_parameters
+    type: string
+    default: ''
+  - name: resource_group
+    type: string
+    default: ''
+  # Deployment scope can be "sub" or "group"
+  - name: deployment_scope
+    type: string
+    default: 'sub'
+  - name: location
+    type: string
+    default: 'westeurope'
+  - name: depends_on
+    type: object
+    default: []
+  - name: condition
+    type: object
+    default: succeeded()
+  - name: display_name
+    type: string
+    default: "Deploy Bicep"
+
+jobs:
+  - deployment: "${{ parameters.job_name }}"
+    dependsOn: ${{ parameters.depends_on }}
+    condition: ${{ parameters.condition }}
+    pool:
+      vmImage: 'ubuntu-20.04'
+    displayName: ${{ parameters.display_name }}
+    environment: ${{ parameters.deploy_env_name }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+           - task: AzureCLI@2
+             inputs:
+               azureSubscription: ${{ parameters.subscription }}
+               scriptType: bash
+               addSpnToEnvironment: true
+               scriptLocation: inlineScript
+               inlineScript: |
+                 az --version
+                 az login --service-principal -u $(contributor-app-registration-id) -p $(contributor-service-principal-secret) --tenant $(tenant-id)
+                 az deployment sub create \
+                     --location ${{ parameters.location }} \
+                     --template-file ${{ parameters.template_file }} \
+                     ${{ parameters.template_parameters }}
+             displayName: 'deployment sub create' 
