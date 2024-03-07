@@ -4,12 +4,15 @@ trigger: none
 variables:
   - name: subscription_name
     value: AzureRM SvcConnection JMB-DPL-SDLZ-TST
+  - group: "Terraform Vars TST"
 
 stages:
-  - stage: Deploy
-    variables:
-    - group: "Terraform Vars TST"
     jobs:
+    - job: checkout job
+      steps:
+      - step: checkout step
+      - checkout: self 
+      - step: deploy step
     # Deploy bicep main files
       - template: bicep-deploy.yml
         parameters:
