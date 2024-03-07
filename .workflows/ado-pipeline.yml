@@ -13,7 +13,7 @@ stages:
     # Deploy bicep main files
       - template: bicep-deploy.yml
         parameters:
-          template_file: '$(Pipeline.Workspace)/bicep/main.bicep'
+          template_file: '$(Pipeline.Workspace)/infra/main.bicep'
           job_name: 'DeployInfra'
           deployment_scope: 'sub'
           deploy_env_name: 'tst'
