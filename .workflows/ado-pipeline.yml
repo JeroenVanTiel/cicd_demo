@@ -1,42 +1,13 @@
-##This pipeline is triggered from ado_pipleine_ps_main.yml
-#parameters:
-#  - name: bicepBuild
-#    default: infra
-#  - name: location
-#    default: westeurope
-#  - name: svc_tst
-#    default: 'AzureRM SvcConnection JMB-DPL-SDLZ-TST'
-#  - name: azure_environment
-#    default: tst
-#
-#jobs:
-#  #Adding approval request for the Publish step
-#  - deployment: DeployTST
-#    displayName: 'Publish TST'
-#    #Environment can be found in devops under environments
-#    environment: ${{ parameters.azure_environment }}
-#    variables:
-#      - group: "Terraform Vars ${{parameters.azure_environment}}"
-#      - group: "Bicep Vars ${{ parameters.azure_environment }}"
-#    strategy:
-#      runOnce:
-#        deploy:
-#          steps: 
-#          - template: job/publish-bicep-job.yml
-#            parameters:
-#              azureSubscription: ${{parameters.svc_tst}}
-#              azure_environment: ${{parameters.azure_environment}}
-
-  - stage: Deploy
-    variables:
-    - group: "Terraform Vars TST"
-    jobs:
-    # Deploy bicep main files
-      - template: bicep-deploy.yml
-        parameters:
-          template_file: '$(Pipeline.Workspace)/bicep/main.bicep'
-          job_name: 'DeployInfra'
-          deployment_scope: 'sub'
-          deploy_env_name: 'tst'
-          subscription: ${{ variables.subscription_name }}
-          template_parameters: '--parameters environment=tst'
+- stage: Deploy
+  variables:
+  - group: "Terraform Vars TST"
+  jobs:
+  # Deploy bicep main files
+    - template: bicep-deploy.yml
+      parameters:
+        template_file: '$(Pipeline.Workspace)/bicep/main.bicep'
+        job_name: 'DeployInfra'
+        deployment_scope: 'sub'
+        deploy_env_name: 'tst'
+        subscription: ${{ variables.subscription_name }}
+        template_parameters: '--parameters environment=tst'
