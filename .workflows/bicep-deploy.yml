@@ -51,7 +51,7 @@ jobs:
                scriptLocation: inlineScript
                inlineScript: |
                  az --version
-                 az login --service-principal -u $(contributor-app-registration-id) -p $(contributor-service-principal-secret) --tenant $(tenant-id)
+                 az login --service-principal -u '$(contributor-app-registration-id)' -p '$(contributor-service-principal-secret)' --tenant $(tenant-id)
                  az deployment sub create \
                      --location ${{ parameters.location }} \
                      --template-file ${{ parameters.template_file }} \
