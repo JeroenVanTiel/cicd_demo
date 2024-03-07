@@ -25,5 +25,5 @@ steps:
 
         # Deploy build
         New-AzSubscriptionDeployment -Location "westeurope" `
-        -TemplateFile "./infra/main.bicep" `
-        -TemplateParameterFile "./infra/params.json" 
+        -TemplateFile "infra/main.bicep" `
+        -TemplateParameterFile "infra/params.json"
