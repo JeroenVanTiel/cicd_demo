@@ -25,5 +25,5 @@ steps:
 
         # Deploy build
         New-AzSubscriptionDeployment -Location "westeurope" `
-        -TemplateFile "infra/main.bicep" `
-        -TemplateParameterFile "infra/params.json"
+        -TemplateUri "https://raw.githubusercontent.com/JeroenVanTiel/cicd_demo/main/infra/main.bicep" `
+        -TemplateParameterUri "https://raw.githubusercontent.com/JeroenVanTiel/cicd_demo/main/infra/params.json"
