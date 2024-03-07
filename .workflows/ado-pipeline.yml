@@ -1,6 +1,11 @@
 pr: none
 trigger: none
 
+parameters:
+  - name: location
+    type: string
+    default: 'westeurope'
+
 variables:
   - name: subscription_name
     value: AzureRM SvcConnection JMB-DPL-SDLZ-TST
