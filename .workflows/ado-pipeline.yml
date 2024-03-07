@@ -1,13 +1,20 @@
-- stage: Deploy
-  variables:
-  - group: "Terraform Vars TST"
-  jobs:
-  # Deploy bicep main files
-    - template: bicep-deploy.yml
-      parameters:
-        template_file: '$(Pipeline.Workspace)/bicep/main.bicep'
-        job_name: 'DeployInfra'
-        deployment_scope: 'sub'
-        deploy_env_name: 'tst'
-        subscription: ${{ variables.subscription_name }}
-        template_parameters: '--parameters environment=tst'
+pr: none
+trigger: none
+
+variables:
+  - name: subscription_name
+    value: AzureRM SvcConnection JMB-DPL-SDLZ-TST
+
+  - stage: Deploy
+    variables:
+    - group: "Terraform Vars TST"
+    jobs:
+    # Deploy bicep main files
+      - template: bicep-deploy.yml
+        parameters:
+          template_file: '$(Pipeline.Workspace)/bicep/main.bicep'
+          job_name: 'DeployInfra'
+          deployment_scope: 'sub'
+          deploy_env_name: 'tst'
+          subscription: ${{ variables.subscription_name }}
+          template_parameters: '--parameters environment=tst'
