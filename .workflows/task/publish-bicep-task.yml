@@ -25,5 +25,5 @@ steps:
 
         # Deploy build
         New-AzSubscriptionDeployment -Location "westeurope" `
-        -TemplateFile "$(System.ArtifactsDirectory)/main.json" `
-        -TemplateParameterFile "$(System.DefaultWorkingDirectory)/infra/params.${{parameters.azure_environment}}.json"
+        -TemplateFile "$(System.DefaultWorkingDirectory)/infra/main.bicep" `
+        -TemplateParameterFile "$(System.DefaultWorkingDirectory)/infra/params.json"
