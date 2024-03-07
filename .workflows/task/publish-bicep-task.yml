@@ -25,5 +25,5 @@ steps:
 
         # Deploy build
         New-AzSubscriptionDeployment -Location "westeurope" `
-        -TemplateFile "$(System.ArtifactsDirectory)/main.bicep" `
+        -TemplateFile "$(System.DefaultWorkingDirectory)/main.bicep" `
         -TemplateParameterFile "$(System.DefaultWorkingDirectory)/infra/params.json" 
