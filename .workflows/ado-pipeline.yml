@@ -30,7 +30,7 @@ stages:
     - task: PublishBuildArtifacts@1 
       displayName: 'Publish artifact in pipeline' 
       inputs: 
-        PathtoPublish: '$(Build.SourcesDirectory)/main.json'  
+        PathtoPublish: '$(Build.SourcesDirectory)/infra/main.json'  
         ArtifactName: 'finishedTemplate'  
         publishLocation: 'Container' 
 
