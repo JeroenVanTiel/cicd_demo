@@ -1,11 +1,5 @@
-name: Bicep-StorageAccount-demo
-trigger:
-- main
-
-parameters:
-  - name: location
-    type: string
-    default: 'westeurope'
+pr: none
+trigger: none
 
 variables:
   - name: subscription_name
