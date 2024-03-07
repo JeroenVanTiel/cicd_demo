@@ -23,10 +23,7 @@ steps:
         # Connect to Azure
         Connect-AzAccount -ServicePrincipal -Subscription "$(subscription-id)" -Credential $pscredential -Tenant "`$(tenant-id)"
 
-        $password = "$(generate_password.password)" | ConvertTo-SecureString -AsPlainText -Force
-
         # Deploy build
         New-AzSubscriptionDeployment -Location "westeurope" `
         -TemplateFile "$(System.ArtifactsDirectory)/main.json" `
-        -TemplateParameterFile "$(System.DefaultWorkingDirectory)/infra/params.${{parameters.azure_environment}}.json" `
-        -administratorPassword $password
+        -TemplateParameterFile "$(System.DefaultWorkingDirectory)/infra/params.${{parameters.azure_environment}}.json"
