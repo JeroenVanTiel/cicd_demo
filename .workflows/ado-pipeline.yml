@@ -1,39 +1,62 @@
-pr: none
-trigger: none
+name: Bicep-StorageAccount-demo
+trigger:
+- main
+
+parameters:
+  - name: location
+    type: string
+    default: 'westeurope'
 
 variables:
   - name: subscription_name
     value: AzureRM SvcConnection JMB-DPL-SDLZ-TST
 
+pool:
+  vmImage: ubuntu-latest
+
 stages:
-  - stage: Build
-    jobs:
-    # Build bicep main files
+- stage: CI
+  jobs:
+  - job: Build
     steps:
-      - template: bicep-build.yml
-        parameters:
-          subscription_name: ${{ variables.subscription_name }}
-          bicep_dir: $(Build.SourcesDirectory)/infra/main.bicep
-      
-      - task: ps-rule-assert@2
-        displayName: Analyze Azure template files
-        inputs:
-          inputType: repository
-          modules: 'PSRule.Rules.Azure'
+    - task: AzureCLI@2  
+      displayName: 'build bicep artifact' 
+      inputs: 
+        azureSubscription: $(subscription_name) 
+        scriptType: 'pscore'  
+        scriptLocation: 'inlineScript'  
+        inlineScript: 'az bicep build --file infra/main.bicep'
 
+    - task: PublishBuildArtifacts@1 
+      displayName: 'Publish artifact in pipeline' 
+      inputs: 
+        PathtoPublish: '$(Build.SourcesDirectory)/infra/main.json'  
+        ArtifactName: 'finishedTemplate'  
+        publishLocation: 'Container' 
 
-  - stage: Deploy
-    dependsOn:
-      - What_if
-    variables:
-      - group: "Terraform Vars DEV"
-    jobs:
-    # Deploy bicep main files
-      - template: bicep-deploy.yml
-        parameters:
-          template_file: '$(Pipeline.Workspace)/infra/main.bicep'
-          job_name: 'DeployInfra'
-          deployment_scope: 'sub'
-          deploy_env_name: 'tst'
-          subscription: ${{ variables.subscription_name }}
-          template_parameters: '--parameters environment=tst'
+- stage: CD
+  variables:
+  - group: "Terraform Vars TST"
+  jobs:
+  - deployment: biceptoAzure
+    displayName: 'Deploy bicep to Azure'
+    environment: 'AzureDeployment'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: AzureCLI@2
+            displayName: 'deploy bicep template'
+            inputs:
+              azureSubscription: $(subscription_name) 
+              scriptType: 'pscore'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                 az --version
+                 az login --service-principal -u '$(contributor-app-registration-id)' -p '$(contributor-service-principal-secret)' --tenant $(tenant-id)
+                 az deployment sub create `
+                 --location $(location) `
+                 --template-file $(Build.SourcesDirectory)/infra/main.bicep `
+                 --parameters $(Build.SourcesDirectory)/infra/main.params.json 
+       
