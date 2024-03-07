@@ -5,6 +5,7 @@ variables:
   - name: subscription_name
     value: AzureRM SvcConnection JMB-DPL-SDLZ-TST
 
+stages:
   - stage: Deploy
     variables:
     - group: "Terraform Vars TST"
