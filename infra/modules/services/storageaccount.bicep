@@ -80,7 +80,7 @@ resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
       publishInternetEndpoints: false
       publishMicrosoftEndpoints: true
     }
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
     supportsHttpsTrafficOnly: true
   }
 }
