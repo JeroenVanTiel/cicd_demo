@@ -42,7 +42,7 @@ resource storageresourcegroup 'Microsoft.Resources/resourceGroups@2022-09-01' = 
   tags: tags
 }
 
-module storageServices 'modules/storage.bicep' = {
+module storageServices 'modules/storage-module.bicep' = {
   name: 'storageServices'
   scope: storageresourcegroup
   params: {

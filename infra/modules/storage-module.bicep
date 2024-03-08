@@ -32,7 +32,7 @@ var datalakes = [
 ]
 
 // Resources
-module storageacct 'services/storageaccount.bicep' = [for datalake in datalakes: {
+module storageacct 'services/storageaccount-service.bicep' = [for datalake in datalakes: {
   name: datalake.name
   scope: resourceGroup()
   params: {
