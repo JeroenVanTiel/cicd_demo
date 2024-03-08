@@ -6,7 +6,7 @@
             "value": "westeurope"
         },
         "environment": {
-            "value": "acc"
+            "value": "test"
         },
         "prefix": {
             "value": "demo"
