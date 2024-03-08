@@ -1,6 +1,11 @@
 pr: none
 trigger: none
 
+parameters:
+  - name: location
+    type: string
+    default: 'westeurope'
+
 variables:
   - name: subscription_name
     value: AzureRM SvcConnection JMB-DPL-SDLZ-TST
@@ -26,6 +31,13 @@ stages:
       inputs: 
         PathtoPublish: '$(Build.SourcesDirectory)/infra/main.json'  
         ArtifactName: 'finishedTemplate'  
+        publishLocation: 'Container'
+
+    - task: PublishBuildArtifacts@1 
+      displayName: 'Publish artifact in pipeline' 
+      inputs: 
+        PathtoPublish: '$(Build.SourcesDirectory)/infra/main.params.json'  
+        ArtifactName: 'finishedTemplate'  
         publishLocation: 'Container' 
 
 - stage: CD
@@ -49,8 +61,6 @@ stages:
               inlineScript: |
                  az --version
                  az login --service-principal -u '$(contributor-app-registration-id)' -p '$(contributor-service-principal-secret)' --tenant $(tenant-id)
-                 az deployment sub create `
-                 --location $(location) `
+                 az deployment sub create --location ${{ parameters.location }} `
                  --template-file $(Build.SourcesDirectory)/infra/main.bicep `
-                 --parameters $(Build.SourcesDirectory)/infra/main.params.json 
-       
+                 --parameters $(Build.SourcesDirectory)/infra/main.params.json
