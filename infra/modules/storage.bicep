@@ -10,13 +10,15 @@ param environment string
 
 
 // Variables
-var storageDemo_1_Name = '${prefix}-demo-1-${environment}'
-var storageDemo_2_Name = '${prefix}-demo-2-${environment}'
+var storageDemo_1_Name = '${prefix}-cicd-1-${environment}'
+var storageDemo_2_Name = '${prefix}-cicd-2-${environment}'
 
 
 var domainFileSytemNames = [
-  'demo'
-  'test'
+  'welcome'
+  'azure'
+  'data'
+  'guild'
 ]
 var datalakes = [
   {
