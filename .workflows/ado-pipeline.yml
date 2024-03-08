@@ -45,7 +45,7 @@ stages:
   - group: "Terraform Vars TST"
   jobs:
   - deployment: biceptoAzure
-    displayName: 'Deploy bicep to Azure'
+    displayName: 'Deploy'
     environment: 'AzureDeployment'
     strategy:
       runOnce:
