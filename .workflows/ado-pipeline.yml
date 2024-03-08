@@ -1,5 +1,6 @@
 pr: none
-trigger: main
+trigger: 
+- main
 
 parameters:
   - name: location
