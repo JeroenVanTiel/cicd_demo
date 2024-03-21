@@ -16,7 +16,7 @@ param environment string = 'dev'
 @minLength(2)
 @maxLength(10)
 @description('Specifies the prefix for all resources created in this deployment.')
-param prefix string
+param prefix string = 'demo'
 
 
 // General variables
