@@ -19,6 +19,12 @@ stages:
   jobs:
   - job: Build
     steps:
+    - task: ps-rule-assert@2
+      displayName: Run PSRule analysis
+      continueOnError: true
+      inputs:
+      modules: PSRule.Rules.Azure
+
     - task: AzureCLI@2  
       displayName: 'build bicep artifact' 
       inputs: 
