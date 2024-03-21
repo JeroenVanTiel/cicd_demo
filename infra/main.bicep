@@ -2,13 +2,13 @@ targetScope = 'subscription'
 
 // General parameters
 @description('Specifies the location for all resources.')
-param location string
+param location string = 'westeurope'
 @allowed([
   'dev'
   'test'
   'acc'
   'prod'
-])
+]) 
 
 @description('Specifies the environment of the deployment.')
 param environment string = 'dev'
