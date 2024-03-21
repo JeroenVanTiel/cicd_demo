@@ -21,9 +21,11 @@ stages:
     steps:
     - task: ps-rule-assert@2
       displayName: Run PSRule analysis
-      continueOnError: true
+      continueOnError: true    
       inputs:
-      modules: PSRule.Rules.Azure
+        modules: 'PSRule.Rules.Azure'
+        outputFormat: NUnit3
+        outputPath: reports/ps-rule-results.xml  
 
     - task: AzureCLI@2  
       displayName: 'build bicep artifact' 
