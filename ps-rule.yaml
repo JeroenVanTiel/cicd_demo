@@ -24,6 +24,7 @@ configuration:
 input:
   pathIgnore:
     - "infra/**/modules/*.bicep"
+    - "infra/main.bicep"
 
 rule:
   # Enable custom rules that don't exist in the baseline
