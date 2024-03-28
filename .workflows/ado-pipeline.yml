@@ -19,6 +19,7 @@ stages:
   jobs:
   - job: Build
     steps:
+    
     - task: ps-rule-assert@2
       displayName: Run PSRule analysis
       continueOnError: true    
@@ -27,6 +28,14 @@ stages:
         outputFormat: NUnit3
         outputPath: reports/ps-rule-results.xml  
 
+    - task: PublishTestResults@2
+      displayName: "Publish PSRule results"
+      inputs:
+        testResultsFormat: 'NUnit'
+        testResultsFiles: 'reports/ps-rule-results.xml'
+        failTaskOnFailedTests: false
+        testRunTitle: 'PSRule-File'
+    
     - task: AzureCLI@2  
       displayName: 'build bicep artifact' 
       inputs: 
