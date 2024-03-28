@@ -36,6 +36,9 @@ input:
 
   # Exclude modules but not tests.
   - 'infra/**/modules/*.bicep'
+
+execution:
+  notProcessedWarning: false
   
 rule:
   # Enable custom rules that don't exist in the baseline
