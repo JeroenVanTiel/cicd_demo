@@ -28,7 +28,7 @@ input:
   - 'Build/'
   - 'code/'
   - 'docs/'
-  - 'testResults'
+  #- 'testResults'
   - '*.md'
 
   # Exclude modules but not tests.
