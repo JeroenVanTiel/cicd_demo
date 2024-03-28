@@ -18,9 +18,6 @@ configuration:
   # Optionally, configure the minimum version of the Bicep CLI.
   AZURE_BICEP_MINIMUM_VERSION: '0.16.2'
 
-  # Configure the minimum AKS cluster version.
-  AZURE_AKS_CLUSTER_MINIMUM_VERSION: '1.27.7'
-
 input:
   pathIgnore:
   # Ignore other files in the repository.
@@ -38,7 +35,7 @@ input:
   - 'infra/**/modules/*.bicep'
 
 execution:
-  notProcessedWarning: false
+  notProcessedWarning: true
   
 rule:
   # Enable custom rules that don't exist in the baseline
