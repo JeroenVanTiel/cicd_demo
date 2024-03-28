@@ -28,14 +28,14 @@ input:
   - 'Build/'
   - 'code/'
   - 'docs/'
-  #- 'testResults'
+  - 'testResults'
   - '*.md'
 
   # Exclude modules but not tests.
   - 'infra/**/modules/*.bicep'
 
 execution:
-  notProcessedWarning: true
+  notProcessedWarning: false
   
 rule:
   # Enable custom rules that don't exist in the baseline
