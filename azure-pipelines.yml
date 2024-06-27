@@ -6,11 +6,17 @@ pool:
 
 variables:
 - group: "Custom Terraform Vars DEV"
-#- name: my-passed-variable
-#  value: $[variables.format('$(metadataSqlServerName)' + "-admin-username") ] # uses runtime expression
 
-steps:  
-- script: echo "$(sdlz-metadata-p-sqldb-001-admin-username)" # uses macro syntax
-#- script: echo $(my-passed-variable) 
-
-
+stages:
+  - stage: test
+    jobs:
+    - job:
+      displayName: Retrieve variables
+      steps:
+        - task: Powershell@2
+          displayName: Variable retrieval
+          inputs:
+            targetType: inline
+            script: |
+              $SqlAdminVarName = '$(metadataSqlServerName)' + "-admin-username"
+              Write-Host "Direct access: $(SqlAdminVarName)"
