@@ -18,5 +18,5 @@ stages:
           inputs:
             targetType: inline
             script: |
-              $SqlAdminVarName = '$(metadataSqlServerName)' + "-admin-username"
+              $SqlAdminVarName = '$(tenant-id)' + "-admin-username"
               Write-Host "Direct access: $(SqlAdminVarName)"
