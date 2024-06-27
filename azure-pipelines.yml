@@ -3,20 +3,12 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-
-variables:
-- group: "Custom Terraform Vars DEV"
-
-stages:
-  - stage: test
-    jobs:
-    - job:
-      displayName: Retrieve variables
-      steps:
-        - task: Powershell@2
-          displayName: Variable retrieval
-          inputs:
-            targetType: inline
-            script: |
-              $SqlAdminVarName = '$(tenant-id)' + "-admin-username"
-              Write-Host "Direct access:  $($env:"sdlz-metadata-d-sqldb-001-admin-password")"
+  
+jobs:
+- job: DEV
+  variables:
+  - group: Custom Terraform Vars DEV
+  - name: environment
+    value: DEV
+  steps:
+  - script: echo "ssql is $(sdlz-metadata-d-sqldb-001-admin-password) in enviroment $(environment)"
