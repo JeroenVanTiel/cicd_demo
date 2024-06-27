@@ -6,11 +6,11 @@ pool:
 
 variables:
 - group: Custom Terraform Vars DEV
-- name: my-passed-variable
-  value: $[variables.myhello] # uses runtime expression
+#- name: my-passed-variable
+#  value: $[variables.format('$(metadataSqlServerName)' + "-admin-username") ] # uses runtime expression
 
-steps:
-- script: echo $(myhello) # uses macro syntax
+steps:  
+- script: echo $(sdlz-metadata-p-sqldb-001-admin-username) # uses macro syntax
 - script: echo $(my-passed-variable) 
 
 
