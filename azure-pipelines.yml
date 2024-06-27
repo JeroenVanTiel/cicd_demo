@@ -1,0 +1,16 @@
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: Custom Terraform Vars DEV
+- name: my-passed-variable
+  value: $[variables.myhello] # uses runtime expression
+
+steps:
+- script: echo $(myhello) # uses macro syntax
+- script: echo $(my-passed-variable) 
+
+
