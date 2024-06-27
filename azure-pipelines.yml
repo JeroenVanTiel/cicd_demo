@@ -10,7 +10,7 @@ variables:
 #  value: $[variables.format('$(metadataSqlServerName)' + "-admin-username") ] # uses runtime expression
 
 steps:  
-- script: echo $(sdlz-metadata-p-sqldb-001-admin-username) # uses macro syntax
-- script: echo $(my-passed-variable) 
+- script: echo '$(sdlz-metadata-p-sqldb-001-admin-username)' # uses macro syntax
+#- script: echo $(my-passed-variable) 
 
 
