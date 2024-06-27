@@ -19,4 +19,4 @@ stages:
             targetType: inline
             script: |
               $SqlAdminVarName = '$(tenant-id)' + "-admin-username"
-              Write-Host "Direct access:  $($env:$sdlz-metadata-d-sqldb-001-admin-password)"
+              Write-Host "Direct access:  $($env:${sdlz-metadata-d-sqldb-001-admin-password})"
