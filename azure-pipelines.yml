@@ -17,4 +17,4 @@ jobs:
   - name: SqlPasswordName
     value: $(SqlDbName)$(PostFix)
   steps:
-  - script: echo "ssql is $(SqlPasswordName) in enviroment $(environment)"
+  - script: echo "ssql is $(env:SqlPasswordName) in environment $(environment)"
