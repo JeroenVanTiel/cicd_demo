@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-- group: Custom Terraform Vars DEV
+- group: "Custom Terraform Vars DEV"
 #- name: my-passed-variable
 #  value: $[variables.format('$(metadataSqlServerName)' + "-admin-username") ] # uses runtime expression
 
