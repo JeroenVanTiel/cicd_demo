@@ -10,5 +10,11 @@ jobs:
   - group: Custom Terraform Vars DEV
   - name: environment
     value: DEV
+  - name: SqlDbName
+    value: 'sdlz-metadata-d-sqldb-001'
+  - name: PostFix
+    value: '-admin-password'
+  - name: SqlPasswordName
+    value: $(SqlDbName)$(PostFix)
   steps:
-  - script: echo "ssql is $(sdlz-metadata-d-sqldb-001-admin-password) in enviroment $(environment)"
+  - script: echo "ssql is $(SqlPasswordName) in enviroment $(environment)"
