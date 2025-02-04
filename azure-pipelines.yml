@@ -17,4 +17,8 @@ jobs:
   - name: SqlPasswordName
     value: $(SqlDbName)$(PostFix)
   steps:
-  - script: echo "ssql is $(env:SqlPasswordName) in environment $(environment)"
+    - task: AzureKeyVault@2
+      inputs:
+          azureSubscription: 'sandbox-data-management-landing-zone-dev-to-JMB-JDC-DMZL-DEV'
+          KeyVaultName: 'dmlz-shir-dev-kv'
+          SecretsFilter: '*'
