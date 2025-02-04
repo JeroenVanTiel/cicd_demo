@@ -19,6 +19,6 @@ jobs:
   steps:
     - task: AzureKeyVault@2
       inputs:
-          azureSubscription: 'sandbox-data-management-landing-zone-dev-to-JMB-JDC-DMLZ-DEV'
-          KeyVaultName: 'dmlz-shir-dev-kv'
+          azureSubscription: 'AzureRM SVC OIDC JMB-DPL-SDMLZ-DEV'
+          KeyVaultName: 'sdmlz-shir-dev-kv'
           SecretsFilter: '*'
