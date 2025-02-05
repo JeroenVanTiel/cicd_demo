@@ -14,7 +14,7 @@ env:
   AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   RESOURCE_GROUP: "my-resource-group"
   LOCATION: "eastus"
-  BICEP_FILE: "main.bicep"
+  BICEP_FILE: "infra/main.bicep"
 
 jobs:
   # 1. Lint, Validate & Run Security Checks
