@@ -35,7 +35,7 @@ jobs:
       - name: Run Security Scan (Checkov)
         run: |
           pip install checkov
-          checkov -d . --framework azure
+          checkov -d . --framework bicep
 
       - name: Run PSRule (Best Practices Check)
         uses: Microsoft/ps-rule@v2
