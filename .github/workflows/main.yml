@@ -42,7 +42,7 @@ jobs:
         with:
           modules: 'PSRule.Rules.Azure'
           inputPath: $BICEP_FILE
-          outputFormat: 'JUnit' 
+          outputFormat: 'NUnit3' 
           outputPath: './reports/psrule-results.xml'
 
       - name: Upload PSRule Test Results
