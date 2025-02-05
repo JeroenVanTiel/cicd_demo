@@ -15,6 +15,7 @@ env:
   RESOURCE_GROUP: "my-resource-group"
   LOCATION: "eastus"
   BICEP_FILE: "infra/main.bicep"
+  export CHECKOV_OUTPUT_CODE_LINE_LIMIT=100
 
 jobs:
   # 1. Lint, Validate & Run Security Checks
@@ -35,7 +36,7 @@ jobs:
       - name: Run Security Scan (Checkov)
         run: |
           pip install checkov
-          checkov -d . --framework bicep
+          checkov -d . --framework bicep --compact
 
       - name: Run PSRule (Best Practices Check)
         uses: Microsoft/ps-rule@v2
