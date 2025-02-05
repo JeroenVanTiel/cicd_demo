@@ -46,12 +46,6 @@ jobs:
           outputFormat: 'NUnit3' 
           outputPath: './reports/psrule-results.xml'
 
-      - name: Upload PSRule Test Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: psrule-results
-          path: ./reports/psrule-results.xml
-
   # 2. What-If Analysis for Staging
   what-if-staging:
     runs-on: ubuntu-latest
