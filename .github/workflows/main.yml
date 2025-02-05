@@ -41,7 +41,8 @@ jobs:
         uses: Microsoft/ps-rule@v2
         with:
           modules: 'PSRule.Rules.Azure'
-          inputPath: $BICEP_FILE
+          inputType: repository
+          option: ./ps-rule.yaml
           outputFormat: 'NUnit3' 
           outputPath: './reports/psrule-results.xml'
 
